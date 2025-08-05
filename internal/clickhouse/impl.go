@@ -17,7 +17,7 @@ type ClickhouseStore struct {
 }
 
 func NewClickhouseStore(conn clickhouse.Conn, cfg config.ClickhouseCFG) *ClickhouseStore {
-	return &ClickhouseStore{conn: conn}
+	return &ClickhouseStore{conn: conn, cfg: cfg}
 }
 
 func (s *ClickhouseStore) GetTenants(ctx context.Context) ([]tenant.Tenant, error) {

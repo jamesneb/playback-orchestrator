@@ -10,3 +10,4 @@
 # Env/config
 .env
 .bin/
+bin/
