@@ -56,7 +56,7 @@ func LoadConfig() *Config {
 		MAX_COMPRESSION_BUFFER:   getEnvAsInt("MAX_COMPRESSION_BUFFER", 10240),
 		CLIENT_NAME:              getEnv("CLIENT_NAME", "Orchestrator-GO"),
 		CLIENT_VERSION:           getEnv("CLIENT_VERSION", "N/A"),
-		RAW_SPAN_TABLE_NAME:      getEnv("RAW_SPAN_TABLE_NAME", "spans_raw"),
+		RAW_SPAN_TABLE_NAME:      getEnv("RAW_SPANS_TABLE_NAME", "spans_raw"),
 	}
 	orCFG := &OrchestratorCFG{
 		RAW_SPANS_LIMIT: getEnvAsInt("RAW_SPANS_LIMIT", 10),

@@ -25,7 +25,8 @@ func (s *ClickhouseStore) GetTenants(ctx context.Context) ([]tenant.Tenant, erro
 }
 
 func (s *ClickhouseStore) GetNewSpansForTenant(ctx context.Context, limit int) ([]span.Span, error) {
-	query := `SELECT  span_id FROM @s.cfg.RAW_SPANS_TABLE_NAME LIMIT @limit`
+	fmt.Printf("%+v\n", s.cfg)
+	query := fmt.Sprintf("SELECT span_id FROM %s LIMIT @limit", s.cfg.RAW_SPAN_TABLE_NAME)
 	rows, err := s.conn.Query(ctx, query, clickhouse.Named("limit", limit))
 	if err != nil {
 		return nil, fmt.Errorf("query failed: %w", err)
