@@ -11,10 +11,18 @@ import (
 type Config struct {
 	ClickhouseCFG   ClickhouseCFG
 	OrchestratorCFG OrchestratorCFG
+	RedisCFG        RedisCFG
 }
 
 type OrchestratorCFG struct {
 	RAW_SPANS_LIMIT int
+}
+
+type RedisCFG struct {
+	URL            string
+	DB             string
+	PASSWD         string
+	JOB_QUEUE_NAME string
 }
 
 type ClickhouseCFG struct {
@@ -61,9 +69,17 @@ func LoadConfig() *Config {
 	orCFG := &OrchestratorCFG{
 		RAW_SPANS_LIMIT: getEnvAsInt("RAW_SPANS_LIMIT", 10),
 	}
+
+	reCFG := &RedisCFG{
+		URL:            getEnv("REDIS_URL", "localhost:6379"),
+		DB:             getEnv("REDIS_DB_NAME", "0"),
+		PASSWD:         getEnv("REDIS_PASSWD", "redis123"),
+		JOB_QUEUE_NAME: getEnv("REDIS_JOB_QUEUE_NAME", "job_queue"),
+	}
 	return &Config{
 		ClickhouseCFG:   *chCFG,
 		OrchestratorCFG: *orCFG,
+		RedisCFG:        *reCFG,
 	}
 }
 

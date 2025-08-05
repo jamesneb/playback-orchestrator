@@ -5,10 +5,11 @@ import (
 	"fmt"
 
 	"github.com/jamesneb/playback-orchestrator/internal/config"
+	"github.com/jamesneb/playback-orchestrator/internal/orchestrate/jobqueue"
 	orchestrate "github.com/jamesneb/playback-orchestrator/internal/orchestrate/storage"
 )
 
-func Run(store orchestrate.Storage, cfg config.OrchestratorCFG) error {
+func Run(store orchestrate.Storage, queue jobqueue.JobQueue, cfg config.OrchestratorCFG) error {
 	ctx := context.Background()
 	limit := cfg.RAW_SPANS_LIMIT
 
