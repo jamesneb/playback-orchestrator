@@ -2,6 +2,7 @@ package redis
 
 import (
 	"context"
+	"log"
 
 	"github.com/jamesneb/playback-orchestrator/internal/config"
 	jb "github.com/jamesneb/playback-orchestrator/internal/domain/job"
@@ -24,5 +25,18 @@ func (s *RedisJobQueue) Post(ctx context.Context, job *jb.Job) error {
 	if err != nil {
 		return err
 	}
-	return s.client.LPush(ctx, s.cfg.JOB_QUEUE_NAME, data).Err()
+
+	res := s.client.LPush(ctx, s.cfg.JOB_QUEUE_NAME, data)
+	if err := res.Err(); err != nil {
+		return err
+	}
+
+	length, err := res.Result()
+	if err != nil {
+		return err
+	}
+
+	// You can include more job details in this log if desired
+	log.Printf("job enqueued successfully, queue length: %d", length)
+	return nil
 }

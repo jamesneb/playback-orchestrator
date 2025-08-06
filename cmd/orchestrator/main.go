@@ -60,7 +60,7 @@ func startLoop(ctx context.Context, store storage.Storage, queue jobqueue.JobQue
 			log.Println("Shutting down orchestrator loop...")
 			return
 		case <-ticker.C:
-			if err := orchestrate.Run(store, queue, cfg); err != nil {
+			if err := orchestrate.Run(ctx, store, queue, cfg); err != nil {
 				log.Printf("orchestrator run failed: %v", err)
 			}
 		}
